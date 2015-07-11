@@ -1,0 +1,32 @@
+<!doctype html>
+<title>Push Pull</title>
+<form action="start" method="POST">
+    <div>
+    	Zoom speed (steps per second)
+    	<input type="number" name="zoom_speed" min="1" max="1000">
+    </div>
+    <div>
+	Zoom Direction</br>
+        <input type="radio" name="zoom_direction" value="forwards">Forward</br>
+        <input type="radio" name="zoom_direction" value="reverse">Reverse</br>
+    </div>
+    <div>
+    	Focus speed (steps per second)
+    	<input type="number" name="focus_speed" min="1" max="1000">
+    </div>
+    <div>
+	Focus Direction</br>
+        <input type="radio" name="focus_direction" value="forwards">Forward</br>
+        <input type="radio" name="focus_direction" value="reverse">Reverse</br>
+    </div>
+    <div>
+    	Move speed (steps per second)
+    	<input type="number" name="move_speed" min="1" max="1000">
+    </div>
+    <div>
+	Move Direction</br>
+        <input type="radio" name="move_direction" value="forwards">Forward</br>
+        <input type="radio" name="move_direction" value="reverse">Reverse</br>
+    </div>
+    <input type="submit" value="Start">
+</form>

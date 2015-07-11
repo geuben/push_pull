@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</head>
+<body>
+<title>Push Pull</title>
+<button id='1' onclick="loadconfig(this)">1</button>
+<button id='2' onclick="loadconfig(this)">2</button>
+<button id='3' onclick="loadconfig(this)">3</button>
+<button id='4' onclick="loadconfig(this)">4</button>
+<div id="config-number"><b>Config 1</b></div>
+
+<script>
+    function loadconfig(caller) {
+      var config_id = caller.id;
+      $.getJSON('/load/' + config_id, function(data) {
+          $('#zoom_speed').val(data.zoom);
+          if(data.zoom_dir === "forward") {
+              $('#zoom_direction_forwards').prop('checked', true);
+              $('#zoom_direction_reverse').removeProp('checked');
+          } else {
+              $('#zoom_direction_reverse').prop('checked', true);
+              $('#zoom_direction_forwards').removeProp('checked');
+          }
+          $('#focus_speed').val(data.focus);
+          if(data.focus_dir === "forward") {
+              $('#focus_direction_forwards').prop('checked', true);
+              $('#focus_direction_reverse').removeProp('checked');
+          } else {
+              $('#focus_direction_reverse').prop('checked', true);
+              $('#focus_direction_forwards').removeProp('checked');
+          }
+          $('#move_speed').val(data.move);
+          if(data.move_dir === "forward") {
+              console.log("setting move to forwards");
+              $('#move_direction_forwards').prop('checked', true);
+              $('#move_direction_reverse').removeProp('checked');
+          } else {
+              console.log("setting move to reverse");
+              $('#move_direction_reverse').prop('checked', true);
+              $('#move_direction_forwards').removeProp('checked');
+          }
+          $('#config-number').html('<b>Config ' + caller.id + '</b>');
+          $('#config-value').val(caller.id);
+      });
+    }
+</script>
+
+<form action="start" method="POST">
+    <div>
+    	Zoom 
+    	<input id='zoom_speed' type="text" name="zoom_speed" placeholder="per second:steps, per second:steps">
+    </div>
+    <div>
+	Zoom Direction</br>
+        <input type="radio" id='zoom_direction_forwards' name="zoom_direction" value="forwards" checked="checked">Forward</br>
+        <input type="radio" id='zoom_direction_reverse' name="zoom_direction" value="reverse">Reverse</br>
+    </div>
+    <div>
+    	Focus 
+    	<input type="text" id="focus_speed" name="focus_speed" placeholder="per second:steps, per second:steps">
+    </div>
+    <div>
+	Focus Direction</br>
+        <input type="radio" id="focus_direction_forwards" name="focus_direction" value="forwards" checked="checked">Forward</br>
+        <input type="radio" id="focus_direction_reverse" name="focus_direction" value="reverse">Reverse</br>
+    </div>
+    <div>
+    	Move 
+    	<input type="text" id="move_speed" name="move_speed" placeholder="per second:steps, per second:steps">
+    </div>
+    <div>
+	Move Direction</br>
+        <input type="radio" id="move_direction_forwards" name="move_direction" value="forwards" checked="checked">Forward</br>
+        <input type="radio" id="move_direction_reverse" name="move_direction" value="reverse">Reverse</br>
+    </div>
+    <input type="hidden" value="1" name="config_id" id="config-value">
+    <input type="submit" value="Start">
+</form>
+</body>
+</html>
